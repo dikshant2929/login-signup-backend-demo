@@ -6,9 +6,11 @@ const app = express();
 const routes = require("./routes");
 const helper = require("./utils/helper");
 const PORT = process.env.PORT || 5000;
+const cors = require('cors');
 
 // Middleware
 app
+    .use(cors())
     .use( bodyParser.urlencoded({ extended: false })) //Body-parser 
     .use(bodyParser.json())
     .use(passport.initialize()) // Passport

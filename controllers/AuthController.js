@@ -15,7 +15,7 @@ exports.login = (req, res, next) => {
 
     // Check validation
     if (!isValid) {
-        return res.status(400).json(helper.response({
+        return res.json(helper.response({
             error: errors
         }));
     }
@@ -27,7 +27,7 @@ exports.login = (req, res, next) => {
 
         // Check if user exists
         if (!user) {
-            return res.status(404).json(helper.response({
+            return res.json(helper.response({
                 error: new Error('Invalid Email ID or Password'),
                 message: 'Invalid Email ID or Password'
             }));
@@ -36,7 +36,7 @@ exports.login = (req, res, next) => {
         const isMatched = helper.compareSync(password, user.password);
 
         if (!isMatched) {
-            return res.status(400).json(helper.response({ error: new Error('Invalid Email ID or Password'), message: 'Invalid Email ID or Password' }));
+            return res.json(helper.response({ error: new Error('Invalid Email ID or Password'), message: 'Invalid Email ID or Password' }));
         }
 
         // User matched
@@ -63,12 +63,12 @@ exports.register = (req, res, next) => {
 
     // Check validation
     if (!isValid) {
-        return res.status(400).json(helper.response({ error: errors }));
+        return res.json(helper.response({ error: errors }));
     }
 
     User.findOne({ email: req.body.email }).then(user => {
         if (user) {
-            return res.status(400).json(helper.response({
+            return res.json(helper.response({
                 error: new Error('Email already exist'),
                 message: 'Email already exist'
             }));
